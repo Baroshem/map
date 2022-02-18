@@ -1,35 +1,44 @@
 import { resolve } from 'path'
 import { fileURLToPath } from 'url'
-import { defineNuxtModule, addPlugin } from '@nuxt/kit'
+import { defineNuxtModule, addPlugin, addComponent } from '@nuxt/kit'
 import defu from 'defu'
 
-interface ModuleBaseOptions {
-  // TBD
-}
+type Provider = 'google' | 'leaflet';
+
+type ModuleOptions = {
+  [key in Provider]: {
+    apiKey?: string;
+    [key: string]: any;
+  };
+};
 
 declare module '@nuxt/schema' {
   interface PublicRuntimeConfig {
-    map: ModuleBaseOptions
+    map: ModuleOptions;
   }
 }
-
-export interface ModuleOptions extends ModuleBaseOptions {
-  // TBD
-};
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: '@nuxtjs/map',
     configKey: 'map'
   },
-  defaults: {},
+  defaults: {
+    google: {
+      apiKey: ''
+    },
+    leaflet: {
+      test: ''
+    }
+  },
   setup (options, nuxt) {
-    // if (!options) {
-    //   throw new Error('Missing `options`')
-    // }
+    if (options.google && !options.google.apiKey) {
+      console.log('`[@nuxtjs/map]` Missing Google Maps API key. Running in development mode ...')
+    }
 
     nuxt.options.publicRuntimeConfig.map = defu(nuxt.options.publicRuntimeConfig.map, {
-      // TBD
+      google: options.google,
+      leaflet: options.leaflet
     })
 
 
@@ -40,5 +49,7 @@ export default defineNuxtModule<ModuleOptions>({
     // nuxt.hook('autoImports:dirs', (dirs) => {
     //   dirs.push(resolve(runtimeDir, 'composables'))
     // })
+    addComponent({ name: 'NuxtMap', filePath: resolve(runtimeDir, 'components/NuxtMap.vue') })
+    addComponent({ name: 'NuxtMarker', filePath: resolve(runtimeDir, 'components/NuxtMarker.vue') })
   }
 })
