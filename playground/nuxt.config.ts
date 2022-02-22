@@ -5,5 +5,7 @@ export default defineNuxtConfig({
   modules: [
     MapModule
   ],
-  map: {}
+  map: {
+    leaflet: {}
+  }
 })
