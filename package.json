@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "@nuxt/kit": "npm:@nuxt/kit-edge@latest",
+    "leaflet": "^1.7.1",
     "vue3-google-map": "^0.8.3"
   },
   "devDependencies": {
