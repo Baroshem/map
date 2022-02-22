@@ -6,7 +6,7 @@ import defu from 'defu'
 type Provider = 'google' | 'leaflet';
 
 type ModuleOptions = {
-  [key in Provider]: {
+  [key in Provider]?: {
     apiKey?: string;
     [key: string]: any;
   };
@@ -16,6 +16,9 @@ declare module '@nuxt/schema' {
   interface PublicRuntimeConfig {
     map: ModuleOptions;
   }
+  interface NuxtConfig {
+    map: ModuleOptions;
+  }
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -23,14 +26,7 @@ export default defineNuxtModule<ModuleOptions>({
     name: '@nuxtjs/map',
     configKey: 'map'
   },
-  defaults: {
-    google: {
-      apiKey: ''
-    },
-    leaflet: {
-      test: ''
-    }
-  },
+  defaults: {},
   setup (options, nuxt) {
     if (options.google && !options.google.apiKey) {
       console.log('`[@nuxtjs/map]` Missing Google Maps API key. Running in development mode ...')
