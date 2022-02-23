@@ -1,9 +1,10 @@
 <template>
-  <g-marker v-if="provider === 'google'" :options="options"/>
-  <l-marker v-else-if="provider === 'leaflet'" :options="options"/>
+  <g-marker v-if="provider['google']" :options="options"/>
+  <l-marker v-else-if="provider['leaflet']" :options="options"/>
 </template>
 
 <script lang="ts">
+import { useRuntimeConfig } from "#app";
 import { defineComponent, defineAsyncComponent } from 'vue'
 
 export default defineComponent({
@@ -18,10 +19,13 @@ export default defineComponent({
       type: Object,
       default: () => ({})
     },
-    provider: {
-      type: String,
-      required: true,
-    }
   },
+  setup() {
+    const config = useRuntimeConfig()
+
+    return {
+      provider: config.map.provider
+    }
+  }
 })
 </script>

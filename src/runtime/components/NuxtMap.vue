@@ -1,22 +1,23 @@
 <template>
   <g-map
-    v-if="provider == 'google'"
+    v-if="provider['google']"
     :center="options.center"
     :zoom="options.zoom"
   >
-    <slot/>
+    <slot />
   </g-map>
   <l-map
-    v-else-if="provider === 'leaflet'"
+    v-else-if="provider['leaflet']"
     :center="options.center"
     :zoom="options.zoom"
   >
-    <slot name="marker"></slot>
+    <slot />
   </l-map>
 </template>
 
 <script lang="ts">
 
+import { useRuntimeConfig } from "#app";
 import { defineComponent, defineAsyncComponent } from "vue";
 
 export default defineComponent({
@@ -34,10 +35,13 @@ export default defineComponent({
         zoom: 15
       })
     },
-    provider: {
-      type: String,
-      required: true,
-    }
   },
+  setup() {
+    const config = useRuntimeConfig()
+
+    return {
+      provider: config.map.provider
+    }
+  }
 })
 </script>

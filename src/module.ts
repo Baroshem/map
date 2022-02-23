@@ -33,8 +33,7 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     nuxt.options.publicRuntimeConfig.map = defu(nuxt.options.publicRuntimeConfig.map, {
-      google: options.google,
-      leaflet: options.leaflet
+      provider: options
     })
 
 

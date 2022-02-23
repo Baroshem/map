@@ -1,9 +1,10 @@
 <template>
-  <div>{{ leaflet }}</div>
+  <div></div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, onUpdated } from 'vue'
+import { useNuxtApp } from "#app";
 
 export default defineComponent({
   name: 'LMarker',
@@ -14,9 +15,12 @@ export default defineComponent({
       default: () => ({})
     },
   },
-  leaflet: {
-    type: Object,
-    required: true,
+  setup() {
+    const { $leaflet, $mymap } = useNuxtApp()
+
+    if ($leaflet) {
+      $leaflet.marker([40.689247, -74.044502]).addTo($mymap).bindPopup('A pretty CSS3 popup.<br> Easily customizable.').openPopup()
+    }
   }
 })
 </script>

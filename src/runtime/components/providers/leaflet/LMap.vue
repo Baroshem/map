@@ -1,11 +1,12 @@
 <template>
   <div id="mapid">
-    <slot :leaflet="leaflet" name="marker"/>
+    <slot/>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, onMounted } from 'vue'
+import { useNuxtApp } from "#app";
 
 export default defineComponent({
   name: 'LMap',
@@ -21,25 +22,24 @@ export default defineComponent({
   },
   setup({ options }) {
     let mymap;
-    const leaflet = ref(null);
+    let leaflet;
     onMounted(async () => {
       await import("leaflet/dist/leaflet.css");
 
-      leaflet.value = await import('leaflet')
-      mymap = leaflet.value.map("mapid").setView([options.center.lat, options.center.lng], options.zoom);
+      leaflet = await import('leaflet')
+      mymap = leaflet.map("mapid").setView([options.center.lat, options.center.lng], options.zoom);
 
-      leaflet.value.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(mymap);
+      const nuxtApp = useNuxtApp()
+      nuxtApp.provide('leaflet', leaflet)
+      nuxtApp.provide('mymap', mymap)
 
       // leaflet.marker([51.5, -0.09]).addTo(mymap)
       //   .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
       //   .openPopup();
     })
-
-    return {
-      leaflet
-    }
   }
 })
 </script>
