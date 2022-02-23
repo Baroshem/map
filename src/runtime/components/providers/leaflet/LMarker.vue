@@ -1,5 +1,5 @@
 <template>
-  <div>Leaflet Marker</div>
+  <div>{{ leaflet }}</div>
 </template>
 
 <script lang="ts">
@@ -14,5 +14,9 @@ export default defineComponent({
       default: () => ({})
     },
   },
+  leaflet: {
+    type: Object,
+    required: true,
+  }
 })
 </script>

@@ -3,7 +3,7 @@
     :center="options.center"
     :zoom="options.zoom"
   >
-    <slot name="marker" />
+    <slot/>
   </google-map>
 </template>
 
@@ -20,7 +20,10 @@ export default defineComponent({
     // TODO: add types for options https://developers.google.com/maps/documentation/javascript/reference/marker#MarkerOptions
     options: {
       type: Object,
-      default: () => ({})
+      default: () => ({
+        center: { lat: 40.689247, lng: -74.044502 },
+        zoom: 15
+      })
     },
   },
 })
