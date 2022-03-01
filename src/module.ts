@@ -36,14 +36,12 @@ export default defineNuxtModule<ModuleOptions>({
       provider: options
     })
 
-
     const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
     nuxt.options.build.transpile.push(runtimeDir)
-    addPlugin(resolve(runtimeDir, 'plugin'))
 
-    // nuxt.hook('autoImports:dirs', (dirs) => {
-    //   dirs.push(resolve(runtimeDir, 'composables'))
-    // })
+    nuxt.hook('autoImports:dirs', (dirs) => {
+      dirs.push(resolve(runtimeDir, 'composables'))
+    })
     addComponent({ name: 'NuxtMap', filePath: resolve(runtimeDir, 'components/NuxtMap.vue') })
     addComponent({ name: 'NuxtMarker', filePath: resolve(runtimeDir, 'components/NuxtMarker.vue') })
   }

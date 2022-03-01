@@ -1,18 +1,28 @@
 <template>
-  <div id="mapid">
+  <leaflet-map
+    v-model="options.center.zoom"
+    v-model:zoom="options.center.zoom"
+    :center="[options.center.lat, options.center.lng]"
+  >
+    <l-tile-layer
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    ></l-tile-layer>
     <slot/>
-  </div>
+  </leaflet-map>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted } from 'vue'
-import { useNuxtApp } from "#app";
-import { useLeaflet } from '../../../composables/useLeaflet.ts'
+import { LMap as LeafletMap, LTileLayer } from "@vue-leaflet/vue-leaflet";
+import "leaflet/dist/leaflet.css";
 
 export default defineComponent({
   name: 'LMap',
+  components: {
+    LeafletMap,
+    LTileLayer
+  },
   props: {
-    // TODO: add types for options https://developers.google.com/maps/documentation/javascript/reference/marker#MarkerOptions
     options: {
       type: Object,
       default: () => ({
@@ -21,19 +31,6 @@ export default defineComponent({
       })
     },
   },
-  setup({ options }) {
-    let mymap;
-    let leaflet;
-    onMounted(async () => {
-      const { leaflet, map, init } = useLeaflet()
-
-      await init(options)
-
-      leaflet.value.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      }).addTo(map.value);
-    })
-  }
 })
 </script>
 
