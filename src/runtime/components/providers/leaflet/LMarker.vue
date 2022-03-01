@@ -3,8 +3,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onUpdated } from 'vue'
-import { useNuxtApp } from "#app";
+import { defineComponent } from 'vue'
+import { useLeaflet } from '../../../composables/useLeaflet.ts'
 
 export default defineComponent({
   name: 'LMarker',
@@ -16,11 +16,9 @@ export default defineComponent({
     },
   },
   setup() {
-    const { $leaflet, $mymap } = useNuxtApp()
+    const { leaflet, map, init } = useLeaflet()
 
-    if ($leaflet) {
-      $leaflet.marker([40.689247, -74.044502]).addTo($mymap).bindPopup('A pretty CSS3 popup.<br> Easily customizable.').openPopup()
-    }
+    leaflet.value?.marker([40.689247, -74.044502]).addTo(map.value).bindPopup('A pretty CSS3 popup.<br> Easily customizable.').openPopup()
   }
 })
 </script>

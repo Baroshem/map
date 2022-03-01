@@ -17,7 +17,7 @@
 
 <script lang="ts">
 
-import { useRuntimeConfig } from "#app";
+import { useMapProviderConfig } from '../composables/useMapProviderConfig.ts'
 import { defineComponent, defineAsyncComponent } from "vue";
 
 export default defineComponent({
@@ -37,10 +37,10 @@ export default defineComponent({
     },
   },
   setup() {
-    const config = useRuntimeConfig()
+    const provider = useMapProviderConfig()
 
     return {
-      provider: config.map.provider
+      provider
     }
   }
 })
