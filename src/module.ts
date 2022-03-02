@@ -5,12 +5,19 @@ import defu from 'defu'
 
 type Provider = 'google' | 'leaflet';
 
+// type ModuleOptions = {
+//   [key in Provider]?: {
+//     apiKey?: string;
+//     [key: string]: any;
+//   };
+// };
+
 type ModuleOptions = {
-  [key in Provider]?: {
+  provider: Provider;
+  options?: {
     apiKey?: string;
-    [key: string]: any;
   };
-};
+}
 
 declare module '@nuxt/schema' {
   interface PublicRuntimeConfig {
@@ -26,14 +33,17 @@ export default defineNuxtModule<ModuleOptions>({
     name: '@nuxtjs/map',
     configKey: 'map'
   },
-  defaults: {},
   setup (options, nuxt) {
-    if (options.google && !options.google.apiKey) {
+    if (!options.provider) {
+      throw new Error('`[@nuxtjs/map]` Missing map provider')
+    }
+
+    if (options.provider === 'google' && !options.options?.apiKey) {
       console.log('`[@nuxtjs/map]` Missing Google Maps API key. Running in development mode ...')
     }
 
     nuxt.options.publicRuntimeConfig.map = defu(nuxt.options.publicRuntimeConfig.map, {
-      provider: options
+      ...options
     })
 
     const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))

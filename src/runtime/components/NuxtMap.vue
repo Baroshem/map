@@ -1,13 +1,13 @@
 <template>
   <g-map
-    v-if="provider['google']"
+    v-if="mapProviderConfig.provider === 'google'"
     :options="options"
-    :apiKey="provider['google'].apiKey"
+    :apiKey="mapProviderConfig.options?.apiKey"
   >
     <slot />
   </g-map>
   <l-map
-    v-else-if="provider['leaflet']"
+    v-else-if="mapProviderConfig.provider === 'leaflet'"
     :options="options"
   >
     <slot />
@@ -36,10 +36,10 @@ export default defineComponent({
     },
   },
   setup() {
-    const provider = useMapProviderConfig()
+    const mapProviderConfig = useMapProviderConfig()
 
     return {
-      provider
+      mapProviderConfig
     }
   }
 })

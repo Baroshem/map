@@ -6,6 +6,6 @@ export default defineNuxtConfig({
     MapModule
   ],
   map: {
-    leaflet: {}
+    provider: 'leaflet'
   }
 })

@@ -1,6 +1,6 @@
 <template>
-  <g-marker v-if="provider['google']" :options="options"/>
-  <l-marker v-else-if="provider['leaflet']" :options="options"/>
+  <g-marker v-if="mapProviderConfig.provider === 'google'" :options="options"/>
+  <l-marker v-else-if="mapProviderConfig.provider === 'leaflet'" :options="options"/>
 </template>
 
 <script lang="ts">
@@ -21,10 +21,10 @@ export default defineComponent({
     },
   },
   setup() {
-    const provider = useMapProviderConfig()
+    const mapProviderConfig = useMapProviderConfig()
 
     return {
-      provider
+      mapProviderConfig
     }
   }
 })
