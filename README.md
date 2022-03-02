@@ -16,7 +16,9 @@
 ## Features
 
 - Nuxt 3 ready
-- Easy integration with Google Maps, Leaflet
+- Easy integration with Google Maps & Leaflet
+- Use only two components `nuxt-map` and `nuxt-marker` no matter what map provider you choose
+- [Coming soon] More map providers and components
 - TypeScript support
 
 [📖 &nbsp;Read the documentation](https://map.nuxtjs.org)
@@ -40,7 +42,7 @@ Firstly, you need to add `@nuxtjs/map` to your Nuxt config.
         "@nuxtjs/map",
     ],
     map: {
-      // TBD
+      provider: '<YOUR_MAP_PROVIDER>' // google | leaflet
     }
 }
 ```
@@ -48,7 +50,27 @@ Firstly, you need to add `@nuxtjs/map` to your Nuxt config.
 Then you can start using `@nuxtjs/map` in your app!
 
 ```vue
-TBD
+<template>
+  <div>
+    <nuxt-map :options="{ center, zoom }" style="height: 500px">
+      <nuxt-marker
+        v-for="(marker, i) in markerPositions"
+        :key="i"
+        :options="{ position: marker }"
+      />
+    </nuxt-map>
+  </div>
+</template>
+
+<script lang="ts" setup>
+const markerPositions = [
+  { lat: 40.689247, lng: -74.044502 },
+  { lat: 40.689947, lng: -74.044502 },
+  { lat: 40.684947, lng: -74.044502 }
+]
+const center = markerPositions[0]
+const zoom = 15
+</script>
 ```
 
 ## Development

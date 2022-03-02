@@ -3,7 +3,7 @@ export default {
   url: 'https://map.nuxtjs.org',
   theme: {
     colors: {
-      primary: '#5468FF',
+      primary: '#00BB6F',
       prism: {
         background: '#F4F4F5 dark:#1F2937'
       }
