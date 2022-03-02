@@ -5,6 +5,7 @@
         v-for="(marker, i) in markerPositions"
         :key="i"
         :options="{ position: marker }"
+        popup="<a href='/''>Hi! I'm staying here on this location!</a>"
       />
     </nuxt-map>
   </div>

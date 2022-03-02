@@ -12,13 +12,16 @@ export default defineComponent({
     GoogleMarker
   },
   props: {
-    // TODO: add types for options https://developers.google.com/maps/documentation/javascript/reference/marker#MarkerOptions
     options: {
       type: Object,
       default: () => ({
         center: { lat: 40.689247, lng: -74.044502 },
       })
     },
+    popup: {
+      type: String,
+      default: ''
+    }
   },
 })
 </script>
