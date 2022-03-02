@@ -24,7 +24,6 @@ export default defineComponent({
       type: Object,
       default: () => ({
         center: { lat: 40.689247, lng: -74.044502 },
-        zoom: 15
       })
     },
     popup: {
