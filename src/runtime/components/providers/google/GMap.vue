@@ -1,5 +1,6 @@
 <template>
   <google-map
+    :api-key="apiKey"
     :center="options.center"
     :zoom="options.zoom"
   >
@@ -25,6 +26,10 @@ export default defineComponent({
         zoom: 15
       })
     },
+    apiKey: {
+      type: String,
+      default: ''
+    }
   },
 })
 </script>

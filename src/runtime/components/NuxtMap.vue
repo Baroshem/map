@@ -1,15 +1,14 @@
 <template>
   <g-map
     v-if="provider['google']"
-    :center="options.center"
-    :zoom="options.zoom"
+    :options="options"
+    :apiKey="provider['google'].apiKey"
   >
     <slot />
   </g-map>
   <l-map
     v-else-if="provider['leaflet']"
-    :center="options.center"
-    :zoom="options.zoom"
+    :options="options"
   >
     <slot />
   </l-map>

@@ -1,11 +1,12 @@
 <template>
   <leaflet-map
-    v-model="options.center.zoom"
-    v-model:zoom="options.center.zoom"
+    v-model="options.zoom"
+    v-model:zoom="options.zoom"
     :center="[options.center.lat, options.center.lng]"
   >
     <l-tile-layer
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      :attribution="options.attribution"
     ></l-tile-layer>
     <slot/>
   </leaflet-map>
@@ -27,7 +28,8 @@ export default defineComponent({
       type: Object,
       default: () => ({
         center: { lat: 40.689247, lng: -74.044502 },
-        zoom: 15
+        zoom: 15,
+        attribution: ''
       })
     },
   },

@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import { fileURLToPath } from 'url'
-import { defineNuxtModule, addPlugin, addComponent } from '@nuxt/kit'
+import { defineNuxtModule, addComponent } from '@nuxt/kit'
 import defu from 'defu'
 
 type Provider = 'google' | 'leaflet';

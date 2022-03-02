@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nuxt-map :options="{ center, zoom }" style="height: 500px">
+    <nuxt-map :options="{ center, zoom, attribution }" style="height: 500px">
       <nuxt-marker
         v-for="(marker, i) in markerPositions"
         :key="i"
@@ -18,4 +18,7 @@ const markerPositions = [
 ]
 const center = markerPositions[0]
 const zoom = 15
+
+// Leaflet only
+const attribution = "<a href='https://blog.safecast.org/about/'>SafeCast</a> (<a href='https://creativecommons.org/licenses/by-sa/3.0/'>CC-BY-SA</a>"
 </script>
