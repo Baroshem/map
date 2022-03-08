@@ -5,14 +5,7 @@ import defu from 'defu'
 
 type Provider = 'google' | 'leaflet';
 
-// type ModuleOptions = {
-//   [key in Provider]?: {
-//     apiKey?: string;
-//     [key: string]: any;
-//   };
-// };
-
-type ModuleOptions = {
+export interface ModuleOptions {
   provider: Provider;
   options?: {
     apiKey?: string;
@@ -31,7 +24,10 @@ declare module '@nuxt/schema' {
 export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: '@nuxtjs/map',
-    configKey: 'map'
+    configKey: 'map',
+    compatibility: {
+      nuxt: '3',
+    }
   },
   setup (options, nuxt) {
     if (!options.provider) {
@@ -52,6 +48,13 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.hook('autoImports:dirs', (dirs) => {
       dirs.push(resolve(runtimeDir, 'composables'))
     })
+    if (options.provider === 'leaflet') {
+      addComponent({ name: 'LMap', filePath: resolve(runtimeDir, 'components/providers/leaflet/LMap.vue') })
+      addComponent({ name: 'LMarker', filePath: resolve(runtimeDir, 'components/providers/leaflet/LMarker.vue') })
+    } else if (options.provider === 'google') {
+      addComponent({ name: 'GMap', filePath: resolve(runtimeDir, 'components/providers/google/GMap.vue') })
+      addComponent({ name: 'GMarker', filePath: resolve(runtimeDir, 'components/providers/google/GMarker.vue') })
+    }
     addComponent({ name: 'NuxtMap', filePath: resolve(runtimeDir, 'components/NuxtMap.vue') })
     addComponent({ name: 'NuxtMarker', filePath: resolve(runtimeDir, 'components/NuxtMarker.vue') })
   }

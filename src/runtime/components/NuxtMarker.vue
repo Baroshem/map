@@ -1,11 +1,10 @@
 <template>
-  <g-marker v-if="mapProviderConfig.provider === 'google'" :options="options" :popup="popup"/>
-  <l-marker v-else-if="mapProviderConfig.provider === 'leaflet'" :options="options" :popup="popup"/>
+  <component :is="providerComponentName" :options="options" :popup="popup"></component>
 </template>
 
 <script lang="ts">
 import { useMapProviderConfig } from '../composables/useMapProviderConfig.ts'
-import { defineComponent, defineAsyncComponent } from 'vue'
+import { defineComponent, defineAsyncComponent, computed } from 'vue'
 
 export default defineComponent({
   name: 'NuxtMarker',
@@ -26,10 +25,18 @@ export default defineComponent({
     }
   },
   setup() {
-    const mapProviderConfig = useMapProviderConfig()
+    const { provider } = useMapProviderConfig()
+    const providerComponentName = computed(() => {
+      if (provider === 'google') {
+        return 'GMarker'
+      } else if (provider === 'leaflet') {
+        return 'LMarker'
+      }
+      // TODO: add more providers here
+    })
 
     return {
-      mapProviderConfig
+      providerComponentName
     }
   }
 })

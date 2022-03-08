@@ -1,23 +1,15 @@
 <template>
-  <g-map
-    v-if="mapProviderConfig.provider === 'google'"
+  <component
+    :is="providerComponentName"
     :options="options"
     :apiKey="mapProviderConfig.options?.apiKey"
-  >
-    <slot />
-  </g-map>
-  <l-map
-    v-else-if="mapProviderConfig.provider === 'leaflet'"
-    :options="options"
-  >
-    <slot />
-  </l-map>
+  ><slot /></component>
 </template>
 
 <script lang="ts">
 
 import { useMapProviderConfig } from '../composables/useMapProviderConfig.ts'
-import { defineComponent, defineAsyncComponent } from "vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
   name: 'NuxtMap',
@@ -37,8 +29,17 @@ export default defineComponent({
   },
   setup() {
     const mapProviderConfig = useMapProviderConfig()
+    const providerComponentName = computed(() => {
+      if (mapProviderConfig.provider === 'google') {
+        return 'GMap'
+      } else if (mapProviderConfig.provider === 'leaflet') {
+        return 'LMap'
+      }
+      // TODO: add more providers here
+    })
 
     return {
+      providerComponentName,
       mapProviderConfig
     }
   }
