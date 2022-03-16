@@ -1,11 +1,14 @@
 import { defineNuxtConfig } from 'nuxt3'
-import MapModule from '../src/module'
+import MapModule from '..'
 
 export default defineNuxtConfig({
   modules: [
     MapModule
   ],
   map: {
-    provider: 'leaflet'
+    provider: 'mapbox',
+    options: {
+      apiKey: 'pk.eyJ1IjoibWlrZWhhbWlsdG9uMDAiLCJhIjoiNDVjS2puUSJ9.aLvWM5BnllUGJ0e6nwMSEg'
+    }
   }
 })

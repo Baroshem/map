@@ -15,7 +15,8 @@ export default defineComponent({
   name: 'NuxtMap',
   components: {
     GMap: defineAsyncComponent(() => import('./providers/google/GMap.vue')),
-    LMap: defineAsyncComponent(() => import('./providers/leaflet/LMap.vue'))
+    LMap: defineAsyncComponent(() => import('./providers/leaflet/LMap.vue')),
+    MMap: defineAsyncComponent(() => import('./providers/mapbox/MMap.vue')),
   },
   props: {
     // TODO: Add better types here
@@ -34,6 +35,8 @@ export default defineComponent({
         return 'GMap'
       } else if (mapProviderConfig.provider === 'leaflet') {
         return 'LMap'
+      } else if (mapProviderConfig.provider === 'mapbox') {
+        return 'MMap'
       }
       // TODO: add more providers here
     })

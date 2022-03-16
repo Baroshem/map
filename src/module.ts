@@ -1,9 +1,9 @@
 import { resolve } from 'path'
 import { fileURLToPath } from 'url'
-import { defineNuxtModule, addComponent } from '@nuxt/kit'
+import { defineNuxtModule, addComponent, addPlugin } from '@nuxt/kit'
 import defu from 'defu'
 
-type Provider = 'google' | 'leaflet';
+type Provider = 'google' | 'leaflet' | 'mapbox';
 
 export interface ModuleOptions {
   provider: Provider;
@@ -14,9 +14,6 @@ export interface ModuleOptions {
 
 declare module '@nuxt/schema' {
   interface PublicRuntimeConfig {
-    map: ModuleOptions;
-  }
-  interface NuxtConfig {
     map: ModuleOptions;
   }
 }
@@ -38,6 +35,10 @@ export default defineNuxtModule<ModuleOptions>({
       console.log('`[@nuxtjs/map]` Missing Google Maps API key. Running in development mode ...')
     }
 
+    if (options.provider === 'mapbox' && !options.options?.apiKey) {
+      console.log('`[@nuxtjs/map]` Missing Mapbox Access Token. Running in development mode ...')
+    }
+
     nuxt.options.publicRuntimeConfig.map = defu(nuxt.options.publicRuntimeConfig.map, {
       ...options
     })
@@ -54,6 +55,10 @@ export default defineNuxtModule<ModuleOptions>({
     } else if (options.provider === 'google') {
       addComponent({ name: 'GMap', filePath: resolve(runtimeDir, 'components/providers/google/GMap.vue') })
       addComponent({ name: 'GMarker', filePath: resolve(runtimeDir, 'components/providers/google/GMarker.vue') })
+    } else if (options.provider === 'mapbox') {
+      addPlugin(resolve(runtimeDir, 'plugin'))
+      addComponent({ name: 'MMap', filePath: resolve(runtimeDir, 'components/providers/mapbox/MMap.vue') })
+      addComponent({ name: 'MMarker', filePath: resolve(runtimeDir, 'components/providers/mapbox/MMarker.vue') })
     }
     addComponent({ name: 'NuxtMap', filePath: resolve(runtimeDir, 'components/NuxtMap.vue') })
     addComponent({ name: 'NuxtMarker', filePath: resolve(runtimeDir, 'components/NuxtMarker.vue') })

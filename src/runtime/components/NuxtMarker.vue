@@ -10,7 +10,8 @@ export default defineComponent({
   name: 'NuxtMarker',
   components: {
     GMarker: defineAsyncComponent(() => import('./providers/google/GMarker.vue')),
-    LMarker: defineAsyncComponent(() => import('./providers/leaflet/LMarker.vue'))
+    LMarker: defineAsyncComponent(() => import('./providers/leaflet/LMarker.vue')),
+    MMarker: defineAsyncComponent(() => import('./providers/mapbox/MMarker.vue'))
   },
   props: {
     options: {
@@ -31,6 +32,8 @@ export default defineComponent({
         return 'GMarker'
       } else if (provider === 'leaflet') {
         return 'LMarker'
+      } else if (provider === 'mapbox') {
+        return 'MMarker'
       }
       // TODO: add more providers here
     })
