@@ -6,9 +6,9 @@ export default defineNuxtConfig({
     MapModule
   ],
   map: {
-    provider: 'mapbox',
-    options: {
-      apiKey: 'pk.eyJ1IjoibWlrZWhhbWlsdG9uMDAiLCJhIjoiNDVjS2puUSJ9.aLvWM5BnllUGJ0e6nwMSEg'
-    }
+    provider: 'google',
+    // options: {
+    //   apiKey: 'pk.eyJ1IjoibWlrZWhhbWlsdG9uMDAiLCJhIjoiNDVjS2puUSJ9.aLvWM5BnllUGJ0e6nwMSEg'
+    // }
   }
 })

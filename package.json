@@ -37,7 +37,7 @@
     "@vue-leaflet/vue-leaflet": "^0.6.1",
     "leaflet": "^1.7.1",
     "vue-mapbox-ts": "^0.7.0",
-    "vue3-google-map": "^0.8.3"
+    "vue3-google-map": "^0.8.4"
   },
   "devDependencies": {
     "@nuxt/module-builder": "latest",
