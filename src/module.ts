@@ -62,5 +62,7 @@ export default defineNuxtModule<ModuleOptions>({
     }
     addComponent({ name: 'NuxtMap', filePath: resolve(runtimeDir, 'components/NuxtMap.vue') })
     addComponent({ name: 'NuxtMarker', filePath: resolve(runtimeDir, 'components/NuxtMarker.vue') })
+
+    console.log('`[@nuxtjs/map]` Module loaded correctly 🚀')
   }
 })

@@ -8189,10 +8189,10 @@ vue-style-loader@^4.1.3:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue3-google-map@^0.8.4:
-  version "0.8.4"
-  resolved "https://registry.yarnpkg.com/vue3-google-map/-/vue3-google-map-0.8.4.tgz#32b6b4f46922a589f1a35c4c13d1637e0918411b"
-  integrity sha512-2WQvpxnDJBSrICWEKnyZWGDYhDn0cRf8eRyIfava7kaxjwPUybtA+Y2tJlU2gjIpk9SINf+dtVZ37x7ICCYwEA==
+vue3-google-map@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/vue3-google-map/-/vue3-google-map-0.9.0.tgz#253a8535c8b9fb04d17b60a80671f52b4726d5ee"
+  integrity sha512-okisrUuyyhJyncOM52mynKuaqzFE8uPSB586NJBWsusHtQuqPNN/5VV5IUs7iT7ey4fghaWLxJn4QT9EWhMLdA==
   dependencies:
     "@googlemaps/js-api-loader" "^1.12.11"
 

@@ -1,11 +1,14 @@
 <template>
   <div>
-    <google-marker :options="options" @click="open = !open"/>
-    <info-window
-      v-if="popup && open"
-      :options="{ ...options, content: popup }"
-      @closeclick="open = !open"
-    />
+    <google-marker :options="options">
+        <info-window
+          v-if="popup"
+          :options="options"
+        >
+        <div v-html="popup"></div>
+        </info-window>
+    </google-marker>
+
   </div>
 </template>
 
