@@ -20,7 +20,6 @@ export default defineComponent({
   },
   props: {
     // TODO: Add better types here
-    theme: "aubergine",
     options: {
       type: Object,
       default: () => ({
